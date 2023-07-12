@@ -41,7 +41,24 @@ h1 {
 }
 .square {
     margin: 0 6px;
+    width: 98px;
+    height: 83px;
     text-transform: uppercase;
+}
+
+.title {
+    background-color: rgb(66, 66, 66);
+    color: rgba(20 158 202);
+    border-radius: 10px;
+    outline: 2px solid rgba(53, 52, 52, 0.116);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.win {
+    color: #646cff;
+    font-size: 35px;
+    text-transform: uppercase;
+    letter-spacing: 2px;    
 }
 
 button {
@@ -57,6 +74,7 @@ button {
 }
 
 .empty {
+    color:#1a1a1a;
     margin: 0 6px;
     width: 98px;
     height: 83px;
