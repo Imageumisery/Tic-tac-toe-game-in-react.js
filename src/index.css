@@ -1,5 +1,6 @@
-
-*, *::after, *::before {
+*,
+*::after,
+*::before {
     margin: 0 0;
     padding: 0 0;
     box-sizing: border-box;
@@ -33,19 +34,51 @@ body {
     margin: 0;
     display: flex;
     place-items: center;
-    min-width: 400px;
+    width: 100vw;
     min-height: 100vh;
 }
 
-h1, h2 {
+h1,
+h2 {
     font-size: 2.1em;
     margin-top: 20px;
+}
+
+button {
+    border-radius: 8px;
+    border: 1px solid transparent;
+
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    transition: border-color 0.25s;
 }
 
 .board-row {
     margin: 15px 0;
 }
+
+.game {
+    display: flex;  
+}
+
+.board {
+margin-right: 70px;
+}
+
+.history {
+margin-top: 3em;
+}
+
+.history-button, .history {
+    padding: 0.2em 0.6em;
+    font-size: 28px;
+}
+
 .square {
+    padding: 0.6em 1.2em;
+    font-size: 2em;
     margin: 0 6px;
     width: 98px;
     height: 83px;
@@ -64,23 +97,13 @@ h1, h2 {
     color: #646cff;
     font-size: 35px;
     text-transform: uppercase;
-    letter-spacing: 2px;    
-}
-
-button {
-    border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 2em;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: #1a1a1a;
-    cursor: pointer;
-    transition: border-color 0.25s;
+    letter-spacing: 2px;
 }
 
 .empty {
-    color:#1a1a1a;
+    padding: 0.6em 1.2em;
+    font-size: 2em;
+    color: #1a1a1a;
     margin: 0 6px;
     width: 98px;
     height: 83px;
@@ -89,10 +112,10 @@ button {
 button:hover {
     border-color: #646cff;
 }
-/* button:focus,
-button:focus-visible {
+.history-button:focus,
+.history-button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-} */
+}
 
 @media (prefers-color-scheme: light) {
     :root {

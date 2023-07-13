@@ -1,52 +1,48 @@
 import Button from "./Button";
-import { useState } from "react";
 
-const Board = () => {
-    const [squares, setSquares] = useState<string[]>(Array(9).fill(null));
-    const [xIsNext, setXIsNext] = useState<boolean>(true);
-    const winner = calculateWinner(squares);
-    const resultClass = 'result';
-    const win = 'win';
+const Board = ({ xIsNext, squares, onPlay }) => {
+    const gameResult = calculateWinner(squares);
+    const resultClass = "result";
+    const win = "win";
     let status;
-    if (winner) {
-      status = "Winner: " + winner;
+    if (gameResult) {
+        status = "Winner: " + gameResult;
     } else {
-      status = "Next player: " + (xIsNext ? "X" : "O");
+        status = "Next player: " + (xIsNext ? "X" : "O");
     }
 
-    const handleClick = function (i:number) {
+    const handleClick = function (i: number) {
         const newSquares = squares.slice();
-        if (squares[i] | !winner) {
-          newSquares[i] = xIsNext ? "x" : "o";
-          setSquares(newSquares);
-          setXIsNext(!xIsNext);
+        if (squares[i] | !gameResult) {
+            newSquares[i] = xIsNext ? "x" : "o";
+            onPlay(newSquares);
         }
-      };
-      calculateWinner(squares);
+    };
+    calculateWinner(squares);
 
     function calculateWinner(squares) {
-      const lines = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]
-      ];
-      for (let i = 0; i < lines.length; i++) {
-        const [a, b, c] = lines[i];
-        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-         return squares[a];
+        const lines = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+        ];
+        for (let i = 0; i < lines.length; i++) {
+            const [a, b, c] = lines[i];
+            if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+                return squares[a];
+            }
         }
-      }
-      return null;
+        return null;
     }
     return (
         <>
-        <h2 className="title">Tic-tac-toe game</h2>
-        <h2 className={winner ? win : resultClass}>{status}</h2>
+            <h2 className="title">Tic-tac-toe game</h2>
+            <h2 className={gameResult ? win : resultClass}>{status}</h2>
             <div className="board-row">
                 <Button value={squares[0]} onSquareClick={() => handleClick(0)} />
                 <Button value={squares[1]} onSquareClick={() => handleClick(1)} />
