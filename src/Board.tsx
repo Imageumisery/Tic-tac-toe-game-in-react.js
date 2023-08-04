@@ -1,26 +1,34 @@
 import Button from "./Button";
 
-const Board = ({ xIsNext, squares, onPlay }) => {
-    const gameResult = calculateWinner(squares);
+type BoardProps = {
+    xIsNext: boolean;
+    squares: string[];
+    onPlay: (nextSquares: string[]) => void;
+};
+
+const Board = (props: BoardProps) => {
+    const gameResult: string | null = calculateWinner(props.squares);
     const resultClass = "result";
     const win = "win";
     let status;
+    let currentSquare;
     if (gameResult) {
-        status = "Winner: " + gameResult;
+        status = `Winner: ${gameResult}`;
     } else {
-        status = "Next player: " + (xIsNext ? "X" : "O");
+        status = `Next player: ${props.xIsNext ? "X" : "O"}`;
     }
 
     const handleClick = function (i: number) {
-        const newSquares = squares.slice();
-        if (squares[i] | !gameResult) {
-            newSquares[i] = xIsNext ? "x" : "o";
-            onPlay(newSquares);
+        const newSquares: string[] = props.squares.slice();
+        currentSquare = props.xIsNext ? "x" : "o";
+        if (props.squares[i] === null && !gameResult) {
+            newSquares[i] = currentSquare;
+            props.onPlay(newSquares);
         }
     };
-    calculateWinner(squares);
+    calculateWinner(props.squares);
 
-    function calculateWinner(squares) {
+    function calculateWinner(squares: string[]) {
         const lines = [
             [0, 1, 2],
             [3, 4, 5],
@@ -44,19 +52,19 @@ const Board = ({ xIsNext, squares, onPlay }) => {
             <h2 className="title">Tic-tac-toe game</h2>
             <h2 className={gameResult ? win : resultClass}>{status}</h2>
             <div className="board-row">
-                <Button value={squares[0]} onSquareClick={() => handleClick(0)} />
-                <Button value={squares[1]} onSquareClick={() => handleClick(1)} />
-                <Button value={squares[2]} onSquareClick={() => handleClick(2)} />
+                <Button value={props.squares[0]} onSquareClick={() => handleClick(0)} />
+                <Button value={props.squares[1]} onSquareClick={() => handleClick(1)} />
+                <Button value={props.squares[2]} onSquareClick={() => handleClick(2)} />
             </div>
             <div className="board-row">
-                <Button value={squares[3]} onSquareClick={() => handleClick(3)} />
-                <Button value={squares[4]} onSquareClick={() => handleClick(4)} />
-                <Button value={squares[5]} onSquareClick={() => handleClick(5)} />
+                <Button value={props.squares[3]} onSquareClick={() => handleClick(3)} />
+                <Button value={props.squares[4]} onSquareClick={() => handleClick(4)} />
+                <Button value={props.squares[5]} onSquareClick={() => handleClick(5)} />
             </div>
             <div className="board-row">
-                <Button value={squares[6]} onSquareClick={() => handleClick(6)} />
-                <Button value={squares[7]} onSquareClick={() => handleClick(7)} />
-                <Button value={squares[8]} onSquareClick={() => handleClick(8)} />
+                <Button value={props.squares[6]} onSquareClick={() => handleClick(6)} />
+                <Button value={props.squares[7]} onSquareClick={() => handleClick(7)} />
+                <Button value={props.squares[8]} onSquareClick={() => handleClick(8)} />
             </div>
         </>
     );

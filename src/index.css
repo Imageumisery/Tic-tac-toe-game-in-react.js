@@ -60,18 +60,19 @@ button {
 }
 
 .game {
-    display: flex;  
+    display: flex;
 }
 
 .board {
-margin-right: 70px;
+    margin-right: 70px;
 }
 
 .history {
-margin-top: 3em;
+    margin-top: 3em;
 }
 
-.history-button, .history {
+.history-button,
+.history {
     padding: 0.2em 0.6em;
     font-size: 28px;
 }
@@ -114,7 +115,7 @@ button:hover {
 }
 .history-button:focus,
 .history-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+    outline: 4px auto -webkit-focus-ring-color;
 }
 
 @media (prefers-color-scheme: light) {
