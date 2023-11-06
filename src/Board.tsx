@@ -12,12 +12,8 @@ const Board = (props: BoardProps) => {
     const win = "win";
     let status;
     let currentSquare;
-    if (gameResult) {
-        status = `Winner: ${gameResult}`;
-    } else {
-        status = `Next player: ${props.xIsNext ? "X" : "O"}`;
-    }
 
+    changeStatus();
     const handleClick = function (i: number) {
         const newSquares: string[] = props.squares.slice();
         currentSquare = props.xIsNext ? "x" : "o";
@@ -25,8 +21,16 @@ const Board = (props: BoardProps) => {
             newSquares[i] = currentSquare;
             props.onPlay(newSquares);
         }
+        calculateWinner(props.squares);
     };
-    calculateWinner(props.squares);
+
+    function changeStatus() {
+        if (gameResult) {
+            status = `Winner: ${gameResult}`;
+        } else {
+            status = `Next player: ${props.xIsNext ? "X" : "O"}`;
+        }
+    }
 
     function calculateWinner(squares: string[]) {
         const lines = [
@@ -39,12 +43,19 @@ const Board = (props: BoardProps) => {
             [0, 4, 8],
             [2, 4, 6],
         ];
+
         for (let i = 0; i < lines.length; i++) {
             const [a, b, c] = lines[i];
             if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
                 return squares[a];
             }
         }
+
+        if (isArrayFull()) return "filled";
+        function isArrayFull(): boolean {
+            return squares.length === squares.filter((o) => o !== null).length;
+        }
+
         return null;
     }
     return (
